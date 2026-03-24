@@ -1,4 +1,4 @@
-# 🏗️ Babel Tower
+# Babel Tower
 
 **Babel Tower** is a project focused on the development and exploration of **individual techniques**. The idea is that, each section resolve some problems in their own way, experimenting with different styles, tools, and ideas.
 
