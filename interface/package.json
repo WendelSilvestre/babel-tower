@@ -1,0 +1,32 @@
+{
+  "name": "babel-tower",
+  "version": "0.0.1",
+  "description": "",
+  "keywords": [
+    "babel-tower"
+  ],
+  "homepage": "https://github.com/WendelSilvestre/babel-tower#readme",
+  "bugs": {
+    "url": "https://github.com/WendelSilvestre/babel-tower/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/WendelSilvestre/babel-tower.git"
+  },
+  "license": "ISC",
+  "author": "wendel-silvestre",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "next": "16.2.1",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "react-router-dom": "^7.13.2",
+    "vite": "^8.0.3"
+  }
+}
