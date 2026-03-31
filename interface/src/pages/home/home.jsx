@@ -1,5 +1,6 @@
 import "./home.css"
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const options = [
   {"keyword": "home", "value": "/"},
@@ -11,22 +12,41 @@ export default function Home() {
     <>
       <h1>Home</h1>
       <div id="home">
-          {/* <Link to="/about">Ir para About</Link> */}
-          <RouteSelection />
+        <RouteSelection />
       </div>
     </>
   );
 }
 
 export function RouteSelection() {
+  const [inputValue, setInputValue] = useState("");
+  const navigate = useNavigate();
+
+  function handleChange(e) {
+    const value = e.target.value;
+    setInputValue(value);
+    
+    const route = options.find(option => option.value === value);
+    if (route){
+      navigate(value)
+    }
+  }
+
   return (
     <div className="container-input">
-      <input type="text" list="routes"></input>
+      <input 
+        className="search-input"
+        type="text"
+        list="routes" 
+        value={inputValue} 
+        onChange={handleChange}>
+      </input>
         <datalist id="routes">
           {options.map(option => 
-              <option value={option.value}>{option.keyword}</option>)
+              <option key={option.value} value={option.value}>{option.keyword}</option>)
           }
         </datalist>
     </div>
   )
 }
+

@@ -5,3 +5,8 @@
     align-items: center;
     justify-content: center;
 }
+
+.search-input {
+    width: 35vh;
+    box-sizing: border-box;
+}
