@@ -1,0 +1,43 @@
+import "./styles.css"
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+const options = [
+  {"keyword": "home", "value": "/"},
+  {"keyword": "about", "value": "/about"}
+]
+
+export function RouteSelection() {
+  const [inputValue, setInputValue] = useState("");
+  const navigate = useNavigate();
+
+  function handleChange(e) {
+    const value = e.target.value;
+    setInputValue(value);
+    
+    const route = options.find(option => option.value === value);
+    if (route){
+      navigate(value)
+    }
+  }
+
+  return (
+    <header className="header">
+      <div className="container-input">
+        <input 
+          className="search-input"
+          type="text"
+          list="routes" 
+          value={inputValue} 
+          onChange={handleChange}>
+        </input>
+          <datalist id="routes">
+            {options.map(option => 
+                <option key={option.value} value={option.value}>{option.keyword}</option>)
+            }
+          </datalist>
+      </div>
+    </header>
+  )
+}
+
