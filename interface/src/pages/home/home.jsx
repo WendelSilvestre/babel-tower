@@ -1,21 +1,32 @@
 import "./home.css"
 import { Link } from "react-router-dom";
 
+const options = [
+  {"keyword": "home", "value": "/"},
+  {"keyword": "about", "value": "/about"}
+]
+
 export default function Home() {
   return (
-    <div>
-        <h1>Home</h1>
-        <Link to="/about">Ir para About</Link>
-        <Input />
-    </div>
+    <>
+      <h1>Home</h1>
+      <div id="home">
+          {/* <Link to="/about">Ir para About</Link> */}
+          <RouteSelection />
+      </div>
+    </>
   );
 }
 
-export function Input() {
+export function RouteSelection() {
   return (
-    <div className="container">
-      <p>Teste</p>
-      <input type="text" className="input" placeholder="O que procura?"></input>
+    <div className="container-input">
+      <input type="text" list="routes"></input>
+        <datalist id="routes">
+          {options.map(option => 
+              <option value={option.value}>{option.keyword}</option>)
+          }
+        </datalist>
     </div>
   )
 }
