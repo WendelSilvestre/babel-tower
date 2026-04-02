@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 const options = [
   {"keyword": "home", "value": "/"},
-  {"keyword": "about", "value": "/about"}
+  {"keyword": "about", "value": "/about"},
+  {"keyword": "phrase", "value": "/phrase"},
 ]
 
 export function RouteSelection() {
