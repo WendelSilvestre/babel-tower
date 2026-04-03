@@ -4,3 +4,7 @@
     justify-content: center;
     flex-direction: column;
 }
+
+.center-input {
+    width: 23ch;
+}
