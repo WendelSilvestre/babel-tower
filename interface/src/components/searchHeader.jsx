@@ -1,11 +1,11 @@
-import "./styles.css"
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Input } from "@/components/ui/input";
 
 const options = [
-  {"keyword": "home", "value": "/"},
-  {"keyword": "about", "value": "/about"},
-  {"keyword": "phrase", "value": "/phrase"},
+  { "keyword": "home", "value": "/" },
+  { "keyword": "about", "value": "/about" },
+  { "keyword": "phrase", "value": "/phrase" },
 ]
 
 export function RouteSelection() {
@@ -15,42 +15,41 @@ export function RouteSelection() {
   function handleChange(e) {
     const value = e.target.value;
     setInputValue(value);
-    
+
     const route = options.find(option => option.value === value);
-    if (route){
+    if (route) {
       navigate(value)
     }
   }
 
   return (
-    <header className="header">   
-      <section className="header-container-section">
-        <div className="header-title-icon">
-          <a href="/">
-            <img alt="babel-tower" src="./src/assets/babel-icon.png" width="40vw" height="45vh"></img>
-            <p>Babel Tower</p>
+    <header className="flex my-4 mx-12">
+      <section className="flex flex-row items-center justify-between w-full">
+        <div>
+          <a className="flex flex-row no-underline items-center" href="/">
+            <img alt="babel-tower" src="./src/assets/babel-icon.png" width="40" height="45" />
+            <p className="text-white">Babel Tower</p>
           </a>
         </div>
-        <div className="container-input">
-          <input 
-            className="search-input"
-            placeHolder="Pesquisar"
+        <div className="absolute left-1/2 -translate-x-1/2">
+          <Input
+            className="w-[15vw] box-border"
+            placeholder="Pesquisar"
             type="text"
-            list="routes" 
-            value={inputValue} 
-            onChange={handleChange}>
-          </input>
-            <datalist id="routes">
-              {options.map(option => 
-                  <option key={option.value} value={option.value}>{option.keyword}</option>)
-              }
-            </datalist>
+            list="routes"
+            value={inputValue}
+            onChange={handleChange}
+          />
+          <datalist id="routes">
+            {options.map(option =>
+              <option key={option.value} value={option.value}>{option.keyword}</option>
+            )}
+          </datalist>
         </div>
-        <div className="header-profile">
-          <p>Profile</p>
+        <div>
+          <p className="text-white">Profile</p>
         </div>
-      </section>   
+      </section>
     </header>
   )
 }
-

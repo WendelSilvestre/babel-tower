@@ -1,4 +1,3 @@
-import "./about.css"
 import { RouteSelection } from "../../components/searchHeader";
 
 export default function About() {
@@ -7,7 +6,7 @@ export default function About() {
       <RouteSelection />
       <div>
         <h1>Sobre</h1>
-        <p>Essa é a página About em React</p>
+        <p className="text-white">Essa é a página About em React</p>
       </div>
     </>
   );
