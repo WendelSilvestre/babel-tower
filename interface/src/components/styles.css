@@ -26,3 +26,9 @@
     flex-direction: row;
     text-decoration: none;
 }
+
+.container-input {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}

@@ -34,6 +34,7 @@ export function RouteSelection() {
         <div className="container-input">
           <input 
             className="search-input"
+            placeHolder="Pesquisar"
             type="text"
             list="routes" 
             value={inputValue} 

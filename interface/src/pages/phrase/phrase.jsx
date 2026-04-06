@@ -7,9 +7,10 @@ const phrases = [
     { "person": "Wendel", "phrase": "Vou comer seu olho!" },
     { "person": "Wendel", "phrase": "Basicamente" },
     { "person": "Wendel", "phrase": "Não fala isso não" },
-    { "person": "Wendel", "phrase": "Ai, tem gringos aqui" },
 
     { "person": "Ogata", "phrase": "Ojima, ojima!" },
+
+    { "person": "Rebeca", "phrase": "Isso não é uma dica de investimento" },
 
     { "person": "Massaru", "phrase": "O cara de chapéu" },
     { "person": "Massaru", "phrase": "BigSad" },
@@ -35,11 +36,15 @@ const phrases = [
     { "person": "Jojo", "phrase": "Eai, o senhor tá bem?" },
     { "person": "Jojo", "phrase": "Chefe, me tira uma dúvida" },
 
+    { "person": "Gustavo", "phrase": "Ai Ai" },
     { "person": "Gustavo", "phrase": "Para quem fica, minha pica!" },
+    { "person": "Gustavo", "phrase": "Pessoas vemos, costumes não sabemos" },
+    { "person": "Gustavo", "phrase": "O maldito homem que acredita no homem" },
     { "person": "Gustavo", "phrase": "A dor do parto é grande, mas devo partir" },
 
-    { "person": "PC", "phrase": "É outras conversas" },
+
     { "person": "PC", "phrase": "." },
+    { "person": "PC", "phrase": "É outras conversas" },
 
     { "person": "Gaia", "phrase": "Se ta putinho?" },
     { "person": "Gaia", "phrase": "Vocês também batem de mão fechada?" },
@@ -93,7 +98,7 @@ export default function Phrase() {
             < RouteSelection />
             <div className="phrase-center">
                 <h1>Quem falou essa frase?</h1>
-                <p style={{fontStyle: "italix"}}>{current.phrase}</p>
+                <p className="phrase-current">{current.phrase}</p>
                 <input
                     className="center-input"
                     list="person"
@@ -108,8 +113,10 @@ export default function Phrase() {
                     ))}
                 </datalist>
                 <p>Acertos: {score} Errors: {error}</p>
-                <button onClick={() => validateInput(input)}>Enviar</button>
-                <button onClick={resetScore}>Resetar Score</button>
+                <div className="phrase-button">
+                    <button onClick={resetScore}>Resetar Score</button>
+                    <button onClick={() => validateInput(input)}>Enviar</button>
+                </div>
             </div>
         </>
     )
