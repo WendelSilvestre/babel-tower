@@ -11,7 +11,7 @@ const phrases = [
 
     { "person": "Ogata", "phrase": "Ojima, ojima!" },
 
-    { "person": "Rebeca", "phrase": "Isso não é uma dica de investimento" },
+    { "person": "Rebeca", "phrase": "Isso não é uma recomendação de investimento" },
 
     { "person": "Massaru", "phrase": "O cara de chapéu" },
     { "person": "Massaru", "phrase": "BigSad" },
@@ -24,20 +24,25 @@ const phrases = [
     { "person": "Leandro", "phrase": "Quer comprar um carro?" },
 
     { "person": "Eiji", "phrase": "Abril os braços é abraço" },
+    { "person": "Eiji", "phrase": "Esse merda do Massu" },
 
     { "person": "Massu", "phrase": "Não te contaram?" },
     { "person": "Massu", "phrase": "Fica ai, vai ter pizza" },
     { "person": "Massu", "phrase": "É o merda do Brunoeiji" },
     { "person": "Massu", "phrase": "É cíclico" },
 
+    { "person": "Cabral", "phrase": "Se tá duro dorme" },
+    
     { "person": "Delson", "phrase": "First try!" },
     { "person": "Delson", "phrase": "A chance é meio. Só que as vezes um meio é maior que o outro" },
 
     { "person": "Jojo", "phrase": "Tudo bem com o senhor?" },
     { "person": "Jojo", "phrase": "Eai, o senhor tá bem?" },
     { "person": "Jojo", "phrase": "Chefe, me tira uma dúvida" },
+    { "person": "Jojo", "phrase": "Você não ta com vontade de cantar uma bela canção" },
 
-    { "person": "Gustavo", "phrase": "Ai Ai" },
+    { "person": "Nicassio", "phrase": "Ai Ai Ai" },
+
     { "person": "Gustavo", "phrase": "Para quem fica, minha pica!" },
     { "person": "Gustavo", "phrase": "Pessoas vemos, costumes não sabemos" },
     { "person": "Gustavo", "phrase": "O maldito homem que acredita no homem" },
@@ -97,27 +102,32 @@ export default function Phrase() {
     return (
         <>
             <RouteSelection />
-            <div className="flex flex-col items-center justify-center">
-                <h1>Quem falou essa frase?</h1>                
-                <p className="text-[2rem] italic">{current.phrase}</p>
-                <Input
-                    className="w-[23ch]"
-                    list="person"
-                    value={input}
-                    onChange={handleInputChange}
-                    onKeyDown={handleEnter}
-                    placeholder="Digite o nome da pessoa"
-                />
-                <datalist id="person">
-                    {people.map(person => (
-                        <option key={person} value={person}></option>
-                    ))}
-                </datalist>
-                <p>Acertos: {score} Errors: {error}</p>
-                <div className="flex flex-row">
-                    <Button variant="outline" className="m-2" onClick={resetScore}>Resetar Score</Button>
-                    <Button className="m-2" onClick={() => validateInput(input)}>Enviar</Button>
+            <div className="flex flex-col items-center justify-center min-h-[calc(100vh-80px)] gap-6 text-white">
+                <p className="text-sm tracking-widest uppercase text-neutral-400">Quem falou essa frase?</p>
+                <p className="text-4xl italic text-center max-w-2xl px-4">"{current.phrase}"</p>
+                <div className="flex flex-col items-center gap-2">
+                    <Input
+                        className="w-[23ch] bg-neutral-800 border-neutral-600 text-white placeholder:text-neutral-500 focus-visible:ring-neutral-400"
+                        list="person"
+                        value={input}
+                        onChange={handleInputChange}
+                        onKeyDown={handleEnter}
+                        placeholder="Digite o nome da pessoa"
+                    />
+                    <datalist id="person">
+                        {people.map(person => (
+                            <option key={person} value={person}></option>
+                        ))}
+                    </datalist>
+                    <Button className="w-full" onClick={() => validateInput(input)}>Enviar</Button>
                 </div>
+                <div className="flex gap-6 text-sm text-neutral-400">
+                    <span>Acertos: <span className="text-green-400 font-semibold">{score}</span></span>
+                    <span>Erros: <span className="text-red-400 font-semibold">{error}</span></span>
+                </div>
+                <Button variant="ghost" className="text-neutral-500 hover:text-white text-xs" onClick={resetScore}>
+                    Resetar Score
+                </Button>
             </div>
         </>
     )
