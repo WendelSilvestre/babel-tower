@@ -1,4 +1,3 @@
-import "./home.css"
 import { RouteSelection } from "../../components/searchHeader";
 
 export default function Home() {

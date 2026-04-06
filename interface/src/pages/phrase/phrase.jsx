@@ -1,6 +1,7 @@
-import "./phrase.css"
 import { useState } from "react";
 import { RouteSelection } from "../../components/searchHeader";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 
 const phrases = [
@@ -31,7 +32,7 @@ const phrases = [
 
     { "person": "Delson", "phrase": "First try!" },
     { "person": "Delson", "phrase": "A chance é meio. Só que as vezes um meio é maior que o outro" },
-    
+
     { "person": "Jojo", "phrase": "Tudo bem com o senhor?" },
     { "person": "Jojo", "phrase": "Eai, o senhor tá bem?" },
     { "person": "Jojo", "phrase": "Chefe, me tira uma dúvida" },
@@ -58,11 +59,11 @@ const people = [...new Set(phrases.map(p => p.person))]
 
 
 export default function Phrase() {
-    const [current, setCurrent] = useState(() => phrases[Math.floor(Math.random() * phrases.length)]) 
+    const [current, setCurrent] = useState(() => phrases[Math.floor(Math.random() * phrases.length)])
     const [input, setInput] = useState("");
     const [score, setScore] = useState(0);
     const [error, setError] = useState(0);
-    
+
     function validateInput(input) {
         if (input.trim().toLowerCase() === current.person.toLowerCase()) {
             setScore(score + 1);
@@ -73,14 +74,14 @@ export default function Phrase() {
             setCurrent(next);
             setInput("");
         } else {
-            setError(error + 1); 
+            setError(error + 1);
         }
     }
 
     function handleInputChange(e) {
         setInput(e.target.value);
     }
-    
+
     function handleEnter(e) {
         if (e.key === "Enter") {
             setInput("");
@@ -88,37 +89,36 @@ export default function Phrase() {
         }
     }
 
-    function resetScore(e) {
+    function resetScore() {
         setScore(0);
         setError(0);
     }
 
     return (
         <>
-            < RouteSelection />
-            <div className="phrase-center">
-                <h1>Quem falou essa frase?</h1>
-                <p className="phrase-current">{current.phrase}</p>
-                <input
-                    className="center-input"
+            <RouteSelection />
+            <div className="flex flex-col items-center justify-center">
+                <h1>Quem falou essa frase?</h1>                
+                <p className="text-[2rem] italic">{current.phrase}</p>
+                <Input
+                    className="w-[23ch]"
                     list="person"
                     value={input}
                     onChange={handleInputChange}
                     onKeyDown={handleEnter}
                     placeholder="Digite o nome da pessoa"
-                ></input>
+                />
                 <datalist id="person">
                     {people.map(person => (
                         <option key={person} value={person}></option>
                     ))}
                 </datalist>
                 <p>Acertos: {score} Errors: {error}</p>
-                <div className="phrase-button">
-                    <button onClick={resetScore}>Resetar Score</button>
-                    <button onClick={() => validateInput(input)}>Enviar</button>
+                <div className="flex flex-row">
+                    <Button variant="outline" className="m-2" onClick={resetScore}>Resetar Score</Button>
+                    <Button className="m-2" onClick={() => validateInput(input)}>Enviar</Button>
                 </div>
             </div>
         </>
     )
 }
-
