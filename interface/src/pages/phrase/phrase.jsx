@@ -8,13 +8,16 @@ const phrases = [
     { "person": "Wendel", "phrase": "Vou comer seu olho!" },
     { "person": "Wendel", "phrase": "Basicamente" },
     { "person": "Wendel", "phrase": "Não fala isso não" },
-    { "person": "Wendel", "phrase": "Por quê você ta me perguntando isso?" },
+    { "person": "Wendel", "phrase": "Por que você ta me perguntando isso?" },
 
     { "person": "Ogata", "phrase": "Ojima, ojima!" },
 
     { "person": "Rebeca", "phrase": "Isso não é uma recomendação de investimento" },
-
-    { "person": "Karbonara", "phrase": "Você que é" },
+    
+    { "person": "Nicolas", "phrase": "Muito fudido" },
+    
+    { "person": "Caca", "phrase": "Você que é" },
+    { "person": "Caca", "phrase": "Não consegue né" },
 
     { "person": "Massaru", "phrase": "O cara de chapéu" },
     { "person": "Massaru", "phrase": "BigSad" },
@@ -39,7 +42,7 @@ const phrases = [
     { "person": "Massu", "phrase": "É o merda do Brunoeiji" },
     { "person": "Massu", "phrase": "É cíclico" },
 
-    { "person": "PH", "phrase": "É bom bom" },
+    { "person": "PH", "phrase": "É bombom" },
     { "person": "PH", "phrase": "Obrigado mike" },
 
     { "person": "Gelado", "phrase": "Pedala Pelado" },
@@ -52,6 +55,7 @@ const phrases = [
     { "person": "Cabral", "phrase": "17 é Bolsonaro" },
     { "person": "Cabral", "phrase": "Se tá duro dorme" },
     { "person": "Cabral", "phrase": "Sou fechado com a verdade" },
+    { "person": "Cabral", "phrase": "Eu  como 10 manga numa sentada" },
     
     { "person": "Delson", "phrase": "First try!" },
     { "person": "Delson", "phrase": "A chance é meio. Só que as vezes um meio é maior que o outro" },
@@ -79,10 +83,8 @@ const phrases = [
     { "person": "Gaia", "phrase": "Tá lá" },
     { "person": "Gaia", "phrase": "Padaria?!" },
     { "person": "Gaia", "phrase": "Se ta putinho?" },
-    { "person": "Gaia", "phrase": "Vocês também batem de mão fechada?" },
     { "person": "Gaia", "phrase": "Pair programming?" },
-
-    { "person": "Savio", "phrase": "Mas ó, lava o pinto!" },
+    { "person": "Gaia", "phrase": "Vocês também batem de mão fechada?" },
 ]
 
 const people = [...new Set(phrases.map(p => p.person))]
@@ -201,10 +203,13 @@ export function Phrase() {
     const [current, setCurrent] = useState(() => phrases[Math.floor(Math.random() * phrases.length)])
     const [input, setInput] = useState("");
     const [score, setScore] = useState(0);
+    const [tries, setTries] = useState(20);
     const [error, setError] = useState(0);
     const [neutral, setNeutral] = useState(0);
+    const [shake, setShake] = useState(false);
 
     function validateInput(input) {
+        setTries(tries - 1)
         if (input.trim().toLowerCase() === current.person.toLowerCase()) {
             setScore(score + 1);
             let next;
@@ -215,6 +220,8 @@ export function Phrase() {
             setInput("");
         } else {
             setError(error + 1);
+            triggerShake();
+            setInput("");
         }
     }
 
@@ -245,6 +252,14 @@ export function Phrase() {
         setNeutral(0)
     }
 
+    function triggerShake() {
+        setShake(true);
+
+        setTimeout(() => {
+            setShake(false);
+        }, 600);
+    }
+
     return (
         <>
             <RouteSelection />
@@ -253,7 +268,7 @@ export function Phrase() {
                 <p className="text-4xl italic text-center max-w-2xl px-4">"{current.phrase}"</p>
                 <div className="flex flex-col items-center gap-2">
                     <Input
-                        className="w-[23ch] bg-neutral-800 border-neutral-600 text-white placeholder:text-neutral-500 focus-visible:ring-neutral-400"
+                        className={shake ? "animate-shake border-red-500 w-[23ch]" : "w-[23ch] bg-neutral-800 border-neutral-600 text-white placeholder:text-neutral-500 focus-visible:ring-neutral-400"}
                         list="person"
                         value={input}
                         onChange={handleInputChange}
@@ -272,9 +287,7 @@ export function Phrase() {
                     <span>Erros: <span className="text-red-400 font-semibold">{error}</span></span>
                     <span>Neutros: <span className="text-gray-400 font-semibold">{neutral}</span></span>
                 </div>
-                <Button variant="ghost" className="text-neutral-500 hover:text-white text-xs" onClick={resetScore}>
-                    Resetar Score
-                </Button>
+                <p className="text-sm tracking-widest" >Tentativas: {tries}</p>
                 <Button variant="ghost" className="text-neutral-500 text-white hover:text-white text-xs" onClick={neutralScore}>
                     Não sabe de quem é a frase? Pule!
                 </Button>
