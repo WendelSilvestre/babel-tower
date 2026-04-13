@@ -3,19 +3,19 @@ import { RouteSelection } from "../../components/searchHeader";
 
 const features = [
   {
-    name: 'Structure.',
+    name: 'Estrutura:',
     description:
-      'Build in React vite with tailwindCSS ',
+      'Construído com React e tailwindCss para estilização.',
     icon: CloudArrowUpIcon,
   },
   {
-    name: 'SSL certificates.',
-    description: 'Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo.',
+    name: 'Deploy:',
+    description: 'Front-end e interface - Vercel e Back-End render.',
     icon: LockClosedIcon,
   },
   {
-    name: 'Database backups.',
-    description: 'Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.',
+    name: 'Database:',
+    description: 'Utilizado o PostgreeSQL.',
     icon: ServerIcon,
   },
 ]
@@ -34,7 +34,7 @@ export default function Home() {
                 Babel Tower
               </p>
               <p className="mt-6 text-lg/8 text-gray-300">
-                 The name Babel Tower is inspired by the biblical story of the Tower of Babel, a structure built in a chaotic and uncoordinated way, where multiple languages and perspectives emerged.
+                O nome Babel Tower é inspirado na história biblíca sobre a Torre de Babel, uma estrutura construída de forma cáotica e descordenada, onde múltiplas linguas e perspectivas emergiram.
               </p>
               <dl className="mt-10 max-w-xl space-y-8 text-base/7 text-gray-400 lg:max-w-none">
                 {features.map((feature) => (

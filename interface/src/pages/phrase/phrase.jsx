@@ -2,93 +2,7 @@ import { useState } from "react";
 import { RouteSelection } from "../../components/searchHeader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-
-
-const phrases = [
-    { "person": "Wendel", "phrase": "Vou comer seu olho!" },
-    { "person": "Wendel", "phrase": "Basicamente" },
-    { "person": "Wendel", "phrase": "Não fala isso não" },
-    { "person": "Wendel", "phrase": "Por que você ta me perguntando isso?" },
-
-    { "person": "Ogata", "phrase": "Ojima, ojima!" },
-
-    { "person": "Rebeca", "phrase": "Isso não é uma recomendação de investimento" },
-    
-    { "person": "Nicolas", "phrase": "Muito fudido" },
-    
-    { "person": "Caca", "phrase": "Você que é" },
-    { "person": "Caca", "phrase": "Não consegue né" },
-
-    { "person": "Massaru", "phrase": "O cara de chapéu" },
-    { "person": "Massaru", "phrase": "BigSad" },
-    { "person": "Massaru", "phrase": "Sacanagem" },
-    { "person": "Massaru", "phrase": "É nada!!!" },
-    { "person": "Massaru", "phrase": "O cara não dá a mínima" },
-
-    { "person": "Leandro", "phrase": "Cuidado que ele tá subindo ai" },
-    { "person": "Leandro", "phrase": "Ta achando que a vida é um morango?" },
-    { "person": "Leandro", "phrase": "Quer comprar um carro?" },
-
-    { "person": "João", "phrase": "Hum?!" },
-    { "person": "João", "phrase": "Oi??????" },
-    { "person": "João", "phrase": "Hulk Dourado" },
-    { "person": "João", "phrase": "Poha Fakiani" },
-
-    { "person": "Eiji", "phrase": "Abril os braços é abraço" },
-    { "person": "Eiji", "phrase": "Esse merda do Massu" },
-
-    { "person": "Massu", "phrase": "Não te contaram?" },
-    { "person": "Massu", "phrase": "Fica ai, vai ter pizza" },
-    { "person": "Massu", "phrase": "É o merda do Brunoeiji" },
-    { "person": "Massu", "phrase": "É cíclico" },
-
-    { "person": "PH", "phrase": "É bombom" },
-    { "person": "PH", "phrase": "Obrigado mike" },
-
-    { "person": "Gelado", "phrase": "Pedala Pelado" },
-
-    { "person": "Cabral", "phrase": "Faz o L" },
-    { "person": "Cabral", "phrase": "Kóe mané" },
-    { "person": "Cabral", "phrase": "É né Vito" },
-    { "person": "Cabral", "phrase": "Se é nóia?" },
-    { "person": "Cabral", "phrase": "obrigado VOCÊ" },
-    { "person": "Cabral", "phrase": "17 é Bolsonaro" },
-    { "person": "Cabral", "phrase": "Se tá duro dorme" },
-    { "person": "Cabral", "phrase": "Sou fechado com a verdade" },
-    { "person": "Cabral", "phrase": "Eu  como 10 manga numa sentada" },
-    
-    { "person": "Delson", "phrase": "First try!" },
-    { "person": "Delson", "phrase": "A chance é meio. Só que as vezes um meio é maior que o outro" },
-
-    { "person": "Jojo", "phrase": "Tudo bem com o senhor?" },
-    { "person": "Jojo", "phrase": "Eai, o senhor tá bem?" },
-    { "person": "Jojo", "phrase": "Chefe, me tira uma dúvida" },
-    { "person": "Jojo", "phrase": "Você não ta com vontade de cantar uma bela canção" },
-
-    { "person": "Nicassio", "phrase": "Ai Ai Ai" },
-
-    { "person": "Gustavo", "phrase": "Tem dia que noite é foda" },
-    { "person": "Gustavo", "phrase": "Para quem fica, minha pica!" },
-    { "person": "Gustavo", "phrase": "Pessoas vemos, costumes não sabemos" },
-    { "person": "Gustavo", "phrase": "O maldito homem que acredita no homem" },
-    { "person": "Gustavo", "phrase": "A dor do parto é grande, mas devo partir" },
-
-    { "person": "Vitão", "phrase": "Eu tenho laudo" },
-    { "person": "Vitão", "phrase": "Maconha não é droga" },
-
-    { "person": "PC", "phrase": "." },
-    { "person": "PC", "phrase": "É O QUE!?" },
-    { "person": "PC", "phrase": "É outras conversas" },
-
-    { "person": "Gaia", "phrase": "Tá lá" },
-    { "person": "Gaia", "phrase": "Padaria?!" },
-    { "person": "Gaia", "phrase": "Se ta putinho?" },
-    { "person": "Gaia", "phrase": "Pair programming?" },
-    { "person": "Gaia", "phrase": "Vocês também batem de mão fechada?" },
-]
-
-const people = [...new Set(phrases.map(p => p.person))]
-
+import { newPhrases, oldPhrases } from "./constants"
 
 const leaderboard = [
     { rank: 1, name: "—", score: "—" },
@@ -100,9 +14,14 @@ const leaderboard = [
 
 const MODES = [
     {
-        id: "classic",
-        label: "Stark-Phrases",
+        id: "main",
+        label: "Stark Phrases",
         description: "Adivinhe quem falou cada frase do grupo.",
+    },
+    {
+        id: "classic",
+        label: "Classic Phrases",
+        description: "Para matar a saudade, reviva frases marcantes e icônicas.",
     },
     {
         id: "next",
@@ -113,10 +32,11 @@ const MODES = [
 
 export default function InitialScreen() {
     const [started, setStarted] = useState(false);
-    const [mode, setMode] = useState("classic");
+    const [mode, setMode] = useState("main");
     const [showModes, setShowModes] = useState(false);
 
-    if (started && mode === "classic") return <Phrase />;
+    if (started && mode === "main") return <Phrase mode="main"/>;
+    if (started && mode === "classic") return <Phrase mode="classic"/>;
     if (started && mode === "next") return <NextGame />;
 
     return (
@@ -199,17 +119,21 @@ export function NextGame() {
 }
 
 
-export function Phrase() {
+export function Phrase({ mode }) {
+    let phrases = newPhrases
+    if (mode === "classic") {
+        phrases = oldPhrases
+    }
+    const people = [...new Set(phrases.map(p => p.person))]
+
     const [current, setCurrent] = useState(() => phrases[Math.floor(Math.random() * phrases.length)])
     const [input, setInput] = useState("");
     const [score, setScore] = useState(0);
-    const [tries, setTries] = useState(20);
     const [error, setError] = useState(0);
     const [neutral, setNeutral] = useState(0);
     const [shake, setShake] = useState(false);
 
     function validateInput(input) {
-        setTries(tries - 1)
         if (input.trim().toLowerCase() === current.person.toLowerCase()) {
             setScore(score + 1);
             let next;
@@ -287,7 +211,9 @@ export function Phrase() {
                     <span>Erros: <span className="text-red-400 font-semibold">{error}</span></span>
                     <span>Neutros: <span className="text-gray-400 font-semibold">{neutral}</span></span>
                 </div>
-                <p className="text-sm tracking-widest" >Tentativas: {tries}</p>
+                <Button variant="ghost" className="text-neutral-500 hover:text-white text-xs" onClick={resetScore}>
+                    Resetar Score
+                </Button>
                 <Button variant="ghost" className="text-neutral-500 text-white hover:text-white text-xs" onClick={neutralScore}>
                     Não sabe de quem é a frase? Pule!
                 </Button>
