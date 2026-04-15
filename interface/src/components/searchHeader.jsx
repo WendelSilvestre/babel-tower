@@ -6,6 +6,7 @@ const options = [
   { "keyword": "home", "value": "/" },
   { "keyword": "about", "value": "/about" },
   { "keyword": "phrase", "value": "/phrase" },
+  { "keyword": "user", "value": "/user" },
 ]
 
 export function RouteSelection() {
@@ -47,7 +48,7 @@ export function RouteSelection() {
           </datalist>
         </div>
         <div>
-          <p className="text-white">Profile</p>
+          <a className="flex flex-row no-underline items-center text-white" href="/user">Profile</a>
         </div>
       </section>
     </header>
