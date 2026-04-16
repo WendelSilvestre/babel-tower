@@ -10,9 +10,24 @@ module.exports = {
           '10%, 30%, 50%, 70%, 90%': { transform: 'translateX(-8px)' },
           '20%, 40%, 60%, 80%': { transform: 'translateX(8px)' },
         },
+        'slide-in-right': {
+          '0%': { opacity: '0', transform: 'translateX(40px)' },
+          '100%': { opacity: '1', transform: 'translateX(0)' },
+        },
+        'slide-in-left': {
+          '0%': { opacity: '0', transform: 'translateX(-40px)' },
+          '100%': { opacity: '1', transform: 'translateX(0)' },
+        },
+        'slide-in-top': {
+          '0%': { opacity: '0', transform: 'translateY(-20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
       },
       animation: {
         shake: 'shake 0.6s ease-in-out',
+        'slide-in-right': 'slide-in-right 0.25s ease-out',
+        'slide-in-left': 'slide-in-left 0.25s ease-out',
+        'slide-in-top': 'slide-in-top 0.25s ease-out',
       },
       colors: {
         background: '#202122',
