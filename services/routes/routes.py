@@ -13,9 +13,4 @@ async def helloGet():
 @router.post("/user")
 async def userPost(request: Request):
     body = await request.json()
-    return UserHandler.post(email=body["email"])
-
-
-@router.get("/user")
-async def userGetAll():
-    return UserHandler.get_all()
+    return UserHandler.post(body)
