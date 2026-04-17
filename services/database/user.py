@@ -7,12 +7,13 @@ class UserGateway:
 
     @staticmethod
     def create(name:str, email: str, password: str):
-        with SessionLocal() as db:
-            user = User(name=name, email=email, password=password)
-            db.add(user)
-            db.commit()
-            db.refresh(user)
-            return user
+        # with SessionLocal() as db:
+        #     user = User(name=name, email=email, password=password)
+        #     db.add(user)
+        #     db.commit()
+        #     db.refresh(user)
+        #     return user
+        return
 
     @staticmethod
     def getAll():

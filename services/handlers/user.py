@@ -19,7 +19,7 @@ class UserHandler:
             password=hashedPassword,
         )
 
-        return {"id": user.id, "email": user.email}
+        return {"message": "deu certo"}
 
     @staticmethod
     def get():

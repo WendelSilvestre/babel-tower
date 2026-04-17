@@ -16,6 +16,9 @@
   "license": "ISC",
   "author": "wendel-silvestre",
   "type": "commonjs",
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "main": "index.js",
   "scripts": {
     "dev": "vite",
