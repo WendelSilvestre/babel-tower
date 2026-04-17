@@ -68,7 +68,7 @@ export default function UserLogin() {
                     }`}
                 >
                     <div className="flex flex-col items-center gap-1">
-                        <img alt="Babel Tower" src="./src/assets/babel-icon.png" className="h-20 w-20 mb-2" />
+                        <img alt="Babel Tower" src="/assets/babel-icon.png" className="h-20 w-20 mb-2" />
                         {view === "login" ? (
                             <>
                                 <h1 className="text-2xl font-bold">Entre na sua conta</h1>

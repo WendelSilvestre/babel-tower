@@ -51,7 +51,7 @@ export default function Home() {
           </div>
           <img
             alt="Babel-Tower"
-            src="./src/assets/babel-icon.png"
+            src="/assets/babel-icon.png"
             className="w-3xl max-w-none rounded-xl sm:w-228 md:-ml-4 lg:-ml-0"
           />
         </div>

@@ -28,7 +28,7 @@ export function RouteSelection() {
       <section className="flex flex-row items-center justify-between w-full">
         <div>
           <a className="flex flex-row no-underline items-center" href="/">
-            <img alt="babel-tower" src="./src/assets/babel-icon.png" width="40" height="45" />
+            <img alt="babel-tower" src="/assets/babel-icon.png" width="40" height="45" />
             <p className="text-orange-400">Babel Tower</p>
           </a>
         </div>
