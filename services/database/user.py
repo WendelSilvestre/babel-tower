@@ -6,9 +6,9 @@ from database.connection import SessionLocal
 class UserGateway:
 
     @staticmethod
-    def create(email: str):
+    def create(name:str, email: str, password: str):
         with SessionLocal() as db:
-            user = User(email=email)
+            user = User(name=name, email=email, password=password)
             db.add(user)
             db.commit()
             db.refresh(user)

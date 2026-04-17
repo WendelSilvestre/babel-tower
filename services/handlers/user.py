@@ -11,7 +11,7 @@ class UserHandler:
         email = body["email"]
         password = body["password"]
 
-        hashedPassword = hashpw(password.encode("utf-8"), gensalt)
+        hashedPassword = hashpw(password.encode("utf-8"), gensalt())
 
         user = UserGateway.create(
             name=name,

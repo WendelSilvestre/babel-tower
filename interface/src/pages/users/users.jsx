@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { RouteSelection } from "../../components/searchHeader";
-import Alert from "../../components/alert";
+import { AlertError, AlertSuccess } from "../../components/alert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 const inputClass = "bg-neutral-800 border-neutral-600 text-white placeholder:text-neutral-500 focus-visible:ring-neutral-400";
-const baseUrl = import.meta.env.BASE_API_URL;
+const baseUrl = import.meta.env.VITE_BASE_API_URL;
 
 export default function UserLogin() {
     const [email, setEmail] = useState("");
@@ -13,12 +13,15 @@ export default function UserLogin() {
     const [password, setPassword] = useState("");
     const [view, setView] = useState("login");
     const [direction, setDirection] = useState("right");
+    const [success, setSuccess] = useState("");
     const [error, setError] = useState("");
 
     function goTo(target) {
         setDirection(target === "signup" ? "right" : "left");
         setView(target);
-        setError("");
+        setEmail("");
+        setName("");
+        setPassword("");
     }
 
     async function handleLogin(e) {
@@ -32,10 +35,7 @@ export default function UserLogin() {
 
         if (!response.ok) {
             setError("Erro ao fazer login");
-    
         }
-        const data = await response.json();
-        console.log(data);
 
         goTo("login");
     }
@@ -52,8 +52,7 @@ export default function UserLogin() {
         if (!response.ok) {
             setError("Erro ao criar conta");
         }
-        const data = await response.json();
-        console.log(data);
+        setSuccess("Conta criada com sucesso!")
         
         goTo("login");
     }
@@ -83,7 +82,8 @@ export default function UserLogin() {
                         )}
                     </div>
 
-                    {error && <Alert errorMessage={error} onClose={() => setError("")} />}
+                    {success && <AlertSuccess successMessage={success} onClose={() => setSuccess("")} />}
+                    {error && <AlertError errorMessage={error} onClose={() => setError("")} />}
 
                     {view === "login" ? (
                         <form className="w-full flex flex-col gap-4" onSubmit={handleLogin}>
@@ -93,7 +93,7 @@ export default function UserLogin() {
                             </div>
                             <div className="flex flex-col gap-1.5">
                                 <label htmlFor="password" className="text-sm text-neutral-300">Senha</label>
-                                <Input id="password" value={password} onChange={(e) => setPassword(e.target.value)} name="password" type="password" required autoComplete="current-password" placeholder="••••••••" className={inputClass} />
+                                <Input id="password" value={password} onChange={(e) => setPassword(e.target.value)} name="password" type="password" required autoComplete="current-password" placeholder="password" className={inputClass} />
                             </div>
                             <Button type="submit" className="w-full mt-2">Entrar</Button>
                         </form>
@@ -109,11 +109,11 @@ export default function UserLogin() {
                             </div>
                             <div className="flex flex-col gap-1.5">
                                 <label htmlFor="password" className="text-sm text-neutral-300">Senha</label>
-                                <Input id="password" value={password} onChange={(e) => setPassword(e.target.value)} name="password" type="password" required placeholder="••••••••" className={inputClass} />
+                                <Input id="password" value={password} onChange={(e) => setPassword(e.target.value)} name="password" type="password" required placeholder="password" className={inputClass} />
                             </div>
                             <div className="flex flex-col gap-1.5">
                                 <label htmlFor="confirm-password" className="text-sm text-neutral-300">Confirmar senha</label>
-                                <Input id="confirm-password" name="confirm-password" type="password" required placeholder="••••••••" className={inputClass} />
+                                <Input id="confirm-password" name="confirm-password" type="password" required placeholder="password" className={inputClass} />
                             </div>
                             <Button type="submit" className="w-full mt-2">Criar conta</Button>
                         </form>
