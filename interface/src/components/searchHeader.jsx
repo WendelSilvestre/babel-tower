@@ -1,13 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/input";
+import { options } from "@/routes";
 
-const options = [
-  { "keyword": "home", "value": "/" },
-  { "keyword": "about", "value": "/about" },
-  { "keyword": "phrase", "value": "/phrase" },
-  { "keyword": "user", "value": "/user" },
-]
 
 export function RouteSelection() {
   const [inputValue, setInputValue] = useState("");
