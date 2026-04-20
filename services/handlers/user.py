@@ -19,7 +19,7 @@ class UserHandler:
             password=hashedPassword,
         )
 
-        return {"message": "deu certo"}
+        return {"user": user}
 
     @staticmethod
     def get():
