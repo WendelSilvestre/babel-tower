@@ -33,6 +33,7 @@ export const newPhrases = [
     { "person": "Eiji", "phrase": "Esse merda do Massu" },
 
     { "person": "Massu", "phrase": "Não te contaram?" },
+    { "person": "Massu", "phrase": "Show the balls" },
     { "person": "Massu", "phrase": "Fica ai, vai ter pizza" },
     { "person": "Massu", "phrase": "É o merda do Brunoeiji" },
     { "person": "Massu", "phrase": "É cíclico" },

@@ -119,6 +119,15 @@ export function NextGame() {
 }
 
 
+function shuffleIndices(length) {
+    const indices = Array.from({ length }, (_, i) => i);
+    for (let i = indices.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [indices[i], indices[j]] = [indices[j], indices[i]];
+    }
+    return indices;
+}
+
 export function Phrase({ mode }) {
     let phrases = newPhrases
     if (mode === "classic") {
@@ -126,22 +135,33 @@ export function Phrase({ mode }) {
     }
     const people = [...new Set(phrases.map(p => p.person))]
 
-    const [current, setCurrent] = useState(() => phrases[Math.floor(Math.random() * phrases.length)])
+    const [queue, setQueue] = useState(() => shuffleIndices(phrases.length));
+    const [pointer, setPointer] = useState(0);
+    const [current, setCurrent] = useState(() => phrases[0]);
     const [input, setInput] = useState("");
     const [score, setScore] = useState(0);
     const [error, setError] = useState(0);
     const [neutral, setNeutral] = useState(0);
     const [shake, setShake] = useState(false);
 
+    function advance() {
+        const nextPointer = pointer + 1;
+        if (nextPointer >= phrases.length) {
+            const newQueue = shuffleIndices(phrases.length);
+            setQueue(newQueue);
+            setPointer(0);
+            setCurrent(phrases[newQueue[0]]);
+        } else {
+            setPointer(nextPointer);
+            setCurrent(phrases[queue[nextPointer]]);
+        }
+        setInput("");
+    }
+
     function validateInput(input) {
         if (input.trim().toLowerCase() === current.person.toLowerCase()) {
             setScore(score + 1);
-            let next;
-            do {
-                next = phrases[Math.floor(Math.random() * phrases.length)];
-            } while (next.text === current.phrase && phrases.length > 1);
-            setCurrent(next);
-            setInput("");
+            advance();
         } else {
             setError(error + 1);
             triggerShake();
@@ -161,19 +181,18 @@ export function Phrase({ mode }) {
     }
 
     function neutralScore() {
-        setNeutral(neutral + 1)
-        let next;
-        do {
-            next = phrases[Math.floor(Math.random() * phrases.length)];
-        } while (next.text === current.phrase && phrases.length > 1);
-        setCurrent(next);
-        setInput("");
+        setNeutral(neutral + 1);
+        advance();
     }
 
     function resetScore() {
         setScore(0);
         setError(0);
-        setNeutral(0)
+        setNeutral(0);
+        const newQueue = shuffleIndices(phrases.length);
+        setQueue(newQueue);
+        setPointer(0);
+        setCurrent(phrases[newQueue[0]]);
     }
 
     function triggerShake() {
