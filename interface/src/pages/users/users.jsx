@@ -27,7 +27,7 @@ export default function UserLogin() {
     async function handleLogin(e) {
         e.preventDefault();
 
-        const response = await fetch(`${baseUrl}/babel-tower/user/login`, {
+        const response = await fetch(`${baseUrl}/babel-tower/session`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password })
@@ -37,7 +37,8 @@ export default function UserLogin() {
             setError("Erro ao fazer login");
         }
 
-        goTo("login");
+        const data = await response.json()
+        localStorage.setItem("sessionId", data.session.id)
     }
 
     async function handleSignup(e) {

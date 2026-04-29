@@ -9,7 +9,7 @@ def generate_id():
 
 
 class User(Base):
-    __tablename__ = "users"
+    __tablename__ = "user"
 
     id = Column(String, primary_key=True, default=generate_id, index=True)
     name = Column(String, index=True)

@@ -1,6 +1,7 @@
 from fastapi import HTTPException
 from utils.parameters import validateParameters
 
+
 def validateUserParameters(func):
     def wrapper(body):
         errors = validateParameters(
