@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 
-from models.session import Session, SessionStatus
 from database.connection import SessionLocal
+from models.session import Session, SessionStatus
 
 
 class SessionGateway:

@@ -39,6 +39,7 @@ export default function UserLogin() {
 
         const data = await response.json()
         localStorage.setItem("sessionId", data.session.id)
+        localStorage.setItem("userId", data.session.userId)
     }
 
     async function handleSignup(e) {

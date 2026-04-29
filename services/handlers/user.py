@@ -1,6 +1,8 @@
 from bcrypt import hashpw, gensalt
+
 from database.user import UserGateway
 from middlewares.user import validateUserParameters
+
 
 class UserHandler:
 
