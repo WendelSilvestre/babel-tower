@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from '../pages/home/home.jsx'
 import Manga from '@/pages/manga/manga.jsx'
+import Profile from '@/pages/profile/profile.jsx'
 import About from '../pages/about/about.jsx'
 import Phrase from '../pages/phrase/phrase.jsx'
 import UserLogin from '../pages/users/users.jsx'
@@ -13,6 +14,7 @@ export const options = [
   { "keyword": "about", "value": "/about", "description": "Informações sobre mim"},
   { "keyword": "string", "value": "/strike", "description": "Formatação de texto: tachados"},
   { "keyword": "manga", "value": "/manga", "description": "Controle de volumes de manga"},
+  { "keyword": "profile", "value": "/profile", "description": "Página do usuário"},
 ]
 
 export default function AppRoutes() {
@@ -25,6 +27,7 @@ export default function AppRoutes() {
         <Route path="/user" element={<UserLogin />} />
         <Route path="/strike" element={<Strikethrough />} />
         <Route path="/manga" element={<Manga />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </BrowserRouter>
   )

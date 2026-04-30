@@ -22,3 +22,8 @@ class UserGateway:
     def getAll():
         with SessionLocal() as db:
             return db.query(User).all()
+
+    @staticmethod
+    def getEmail(email: str):
+        with SessionLocal() as db:
+            return db.query(User).filter(User.email == email).first()

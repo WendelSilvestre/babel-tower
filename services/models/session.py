@@ -10,7 +10,7 @@ def generate_id():
     return ''.join(random.choices(string.digits, k=16))
 
 
-class SessionStatus(BaseEnum):
+class SessionStatus(str, BaseEnum):
 
     active = "active"
     expired = "expired"

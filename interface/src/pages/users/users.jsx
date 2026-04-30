@@ -3,11 +3,13 @@ import { RouteSelection } from "../../components/searchHeader";
 import { AlertError, AlertSuccess } from "../../components/alert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useNavigate } from "react-router-dom";
 
 const inputClass = "bg-neutral-800 border-neutral-600 text-white placeholder:text-neutral-500 focus-visible:ring-neutral-400";
 const baseUrl = import.meta.env.VITE_BASE_API_URL;
 
 export default function UserLogin() {
+    const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
@@ -40,6 +42,8 @@ export default function UserLogin() {
         const data = await response.json()
         localStorage.setItem("sessionId", data.session.id)
         localStorage.setItem("userId", data.session.userId)
+
+        navigate("/profile")
     }
 
     async function handleSignup(e) {

@@ -43,7 +43,7 @@ export function RouteSelection() {
           </datalist>
         </div>
         <div>
-          <a className="flex flex-row no-underline items-center text-white" href="/user">Profile</a>
+          <a className="flex flex-row no-underline items-center text-white" href={localStorage.getItem("sessionId") ? "/profile" : "/user"}>Profile</a>
         </div>
       </section>
     </header>
