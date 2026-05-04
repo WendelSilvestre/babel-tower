@@ -2,7 +2,8 @@ import random
 import string
 
 from database.connection import Base
-from sqlalchemy import Column, Integer, String, JSON, Index
+from sqlalchemy.dialects.postgresql import JSONB
+from sqlalchemy import Column, Integer, String, Index
 
 
 def generate_id():
@@ -14,7 +15,7 @@ class Copa(Base):
 
     id = Column(String, primary_key=True, default=generate_id, index=True)
     year = Column(Integer, default=2026, index=True)
-    owned = Column(JSON)
+    owned = Column(JSONB)
     userId = Column(String, index=True)
 
 
