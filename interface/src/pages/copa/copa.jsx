@@ -32,21 +32,15 @@ export default function Copa() {
     if (!userId) return null;
 
     async function handleGetCopa() {
-        const storedCopa = localStorage.getItem("copa");
-        if (!storedCopa) {
-            const response = await fetch(`${baseUrl}/babel-tower/copa?userId=${encodeURIComponent(userId)}`);
+        const response = await fetch(`${baseUrl}/babel-tower/copa?userId=${encodeURIComponent(userId)}`);
 
-            if (!response.ok) {
-                setError("Erro ao coletar histórico do album da copa");
-                return;
-            }
-
-            const data = await response.json();
-            localStorage.setItem("copa", JSON.stringify(data.copa));
-            setCopa(data.copa);
-        } else {
-            setCopa(JSON.parse(storedCopa));
+        if (!response.ok) {
+            setError("Erro ao coletar histórico do album da copa");
+            return;
         }
+
+        const data = await response.json();
+        setCopa(data.copa);
     }
 
     async function handlePatchCopa(team, num) {
