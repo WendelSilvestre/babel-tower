@@ -33,12 +33,8 @@ export default function Copa() {
 
     async function handleGetCopa() {
         const storedCopa = localStorage.getItem("copa");
-        if (!storedCopa) {    
-            const response = await fetch(`${baseUrl}/babel-tower/copa`, {
-                method: "GET",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ userId })
-            });
+        if (!storedCopa) {
+            const response = await fetch(`${baseUrl}/babel-tower/copa?userId=${encodeURIComponent(userId)}`);
 
             if (!response.ok) {
                 setError("Erro ao coletar histórico do album da copa");
@@ -49,7 +45,7 @@ export default function Copa() {
             localStorage.setItem("copa", JSON.stringify(data.copa));
             setCopa(data.copa);
         } else {
-            setCopa(JSON.parse(storedCopa)); 
+            setCopa(JSON.parse(storedCopa));
         }
     }
 

@@ -26,7 +26,7 @@ async def sessionPost(request: Request):
 
 @router.get("/copa")
 async def copaGet(request: Request):
-    body = await request.json()
+    body = dict(request.query_params)
     return CopaHandler.get(body)
 
 @router.patch("/copa")
