@@ -1,6 +1,6 @@
 from http.client import HTTPException
 
-from services.database.copa import CopaGateway
+from database.copa import CopaGateway
 
 
 def validateCopaId(func):
