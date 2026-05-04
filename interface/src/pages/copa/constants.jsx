@@ -16,6 +16,7 @@ export const teams = {
     CAN: range(1, 20),
     CIV: range(1, 20),
     CHI: range(1, 20),
+    COD: range(1, 20),
     CRO: range(1, 20),
     COL: range(1, 20),
     CZE: range(1, 20),
@@ -36,6 +37,7 @@ export const teams = {
     IRQ: range(1, 20),
     
     JAM: range(1, 20),
+    JOR: range(1, 20),
     JPN: range(1, 20),
     
     KOR: range(1, 20),
@@ -55,6 +57,7 @@ export const teams = {
     
     RSA: range(1, 20),
     
+    SCO: range(1, 20),
     SEN: range(1, 20),
     SUI: range(1, 20),
     SWE: range(1, 20),
