@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Request
 
+from handlers.copa import CopaHandler
 from handlers.user import UserHandler
 from handlers.session import SessionHandler
 from handlers.helloworld import HelloWorldHandler
@@ -22,3 +23,13 @@ async def userPost(request: Request):
 async def sessionPost(request: Request):
     body = await request.json()
     return SessionHandler.post(body)
+
+@router.get("/copa")
+async def copaGet(request: Request):
+    body = await request.json()
+    return CopaHandler.get(body)
+
+@router.patch("/copa")
+async def copaPatch(request: Request):
+    body = await request.json()
+    return CopaHandler.patch(body)
