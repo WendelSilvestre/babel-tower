@@ -38,7 +38,11 @@ class CopaGateway:
         with SessionLocal() as db:
             copa = db.query(Copa).filter(Copa.id == copaId).first()
             if copa:
-                copa.owned = {**(copa.owned or {}), **owned}
+                merged = {**(copa.owned or {})}
+                for team, numbers in owned.items():
+                    existing = merged.get(team, [])
+                    merged[team] = sorted(set(existing) | set(numbers))
+                copa.owned = merged
                 db.commit()
                 db.refresh(copa)
                 return copa
