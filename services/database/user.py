@@ -27,3 +27,8 @@ class UserGateway:
     def getEmail(email: str):
         with SessionLocal() as db:
             return db.query(User).filter(User.email == email).first()
+
+    @staticmethod
+    def getById(userId: str):
+        with SessionLocal() as db:
+            return db.query(User).filter(User.id == userId).first()
