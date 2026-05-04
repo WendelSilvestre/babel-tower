@@ -13,5 +13,5 @@ def validateCopaId(func):
         if not copa:
             raise HTTPException(status_code=404, detail="Copa not found")
 
-        return func(copaId)
+        return func(body)
     return wrapper

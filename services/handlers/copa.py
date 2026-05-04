@@ -1,5 +1,3 @@
-from bcrypt import hashpw, gensalt
-
 from database.copa import CopaGateway
 from middlewares.user import validateUserId
 from middlewares.copa import validateCopaId
@@ -26,9 +24,9 @@ class CopaHandler:
         copaCards = CopaGateway.getByUserId(userId=userId)
 
         if not copaCards:
-            copaCards = CopaGateway.create(
-                userId=userId
-            )
+            copa = CopaGateway.create(userId=userId)
+        else:
+            copa = copaCards[0]
 
-        return {"copa": copaCards}
+        return {"copa": copa}
     

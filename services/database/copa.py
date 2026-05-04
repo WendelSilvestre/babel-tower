@@ -38,7 +38,7 @@ class CopaGateway:
         with SessionLocal() as db:
             copa = db.query(Copa).filter(Copa.id == copaId).first()
             if copa:
-                copa.owned.update(owned)
+                copa.owned = {**(copa.owned or {}), **owned}
                 db.commit()
                 db.refresh(copa)
                 return copa
