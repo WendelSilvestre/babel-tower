@@ -57,7 +57,7 @@ export default function Copa() {
             const response = await fetch(`${baseUrl}/babel-tower/copa`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ copaId, owned })
+                body: JSON.stringify({ copaId, owned, userId })
             });
 
             if (!response.ok) {

@@ -52,4 +52,7 @@ export const teams = {
     KSA: range(1, 20),
     QAT: range(1, 20),
     UAE: range(1, 20),
+
+    FWC: range(1, 20),
+    CC:  range(1, 12),
 };
