@@ -1,8 +1,8 @@
 const range = (start, end) => Array.from({ length: end - start + 1 }, (_, i) => start + i);
 
 export const teams = {
-    FWC: range(1, 20),
-    CC:  range(1, 12),
+    FWC: range(0, 19),
+    CC:  range(1, 14),
 
     ALG: range(1, 20),
     ARG: range(1, 20),
@@ -16,10 +16,12 @@ export const teams = {
     CAN: range(1, 20),
     CIV: range(1, 20),
     CHI: range(1, 20),
+    CPV: range(1, 20),
     COD: range(1, 20),
     CRO: range(1, 20),
     COL: range(1, 20),
     CZE: range(1, 20),
+    CUW: range(1, 20),
 
     ECU: range(1, 20),
     EGY: range(1, 20),
