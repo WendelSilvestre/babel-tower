@@ -73,3 +73,9 @@ export const teams = {
     USA: range(1, 20),
     UZB: range(1, 20),
 };
+
+let count = 0;
+for (const numbers of Object.values(teams)) {
+    count += numbers.length;
+}
+export const total = count;

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { teams } from "./constants";
+import { teams, total } from "./constants";
 import { AlertError } from "../../components/alert";
 import { RouteSelection } from "../../components/searchHeader";
 
@@ -13,6 +13,7 @@ export default function Copa() {
     const [userId, setUserId] = useState(null);
     const [copa, setCopa] = useState(null);
     const [error, setError] = useState(null);
+    const [counterCopaOwned, setCounterCopaOwned] = useState(0);
 
     useEffect(() => {
         const sessionId = localStorage.getItem("sessionId");
@@ -40,7 +41,7 @@ export default function Copa() {
         }
 
         const data = await response.json();
-        setCopa(data.copa);
+        handleCounterCopa(data.copa);
     }
 
     async function handlePatchCopa(team, num) {
@@ -60,11 +61,17 @@ export default function Copa() {
             }
 
             const data = await response.json();
-            setCopa(data.copa);
+            handleCounterCopa(data.copa);
             localStorage.setItem("copa", JSON.stringify(data.copa));
         } catch (err) {
             setError("Erro na requisição");
         }
+    }
+
+    async function handleCounterCopa(copa){
+        const count = Object.values(copa.owned || {}).reduce((acc, numbers) => acc + numbers.length, 0);
+        setCounterCopaOwned(count);
+        setCopa(copa);
     }
 
     return (
@@ -78,7 +85,21 @@ export default function Copa() {
                         <h1 className="text-3xl font-semibold tracking-tight">Copa do Mundo 2026</h1>
                         <p className="text-sm text-neutral-400">Marque as figurinhas que você já tem</p>
                     </div>
-
+                    <div className="flex flex-col gap-2">
+                        <div className="flex items-center justify-between text-sm">
+                            <span className="text-neutral-400">Total de figurinhas:</span>
+                            <span className="text-neutral-200 font-medium">
+                                {counterCopaOwned} <span className="text-neutral-500">/ {total}</span>
+                            </span>
+                        </div>
+                        <div className="w-full h-4 bg-white/5 rounded-full overflow-hidden">
+                            <div
+                                className="h-full bg-indigo-500 transition-all duration-500 bg-[length:1rem_1rem] bg-[linear-gradient(45deg,rgba(255,255,255,.15)_25%,transparent_25%,transparent_50%,rgba(255,255,255,.15)_50%,rgba(255,255,255,.15)_75%,transparent_75%,transparent)]"
+                                style={{ width: `${(counterCopaOwned / total) * 100}%` }}
+                            />
+                        </div>
+                    </div>
+                    
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                         {Object.entries(teams).map(([team, numbers]) => (
                             <div
