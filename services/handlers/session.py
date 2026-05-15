@@ -21,4 +21,11 @@ class SessionHandler:
 
         session = SessionGateway.create(userId=user.id)
 
+        return {"session": session, "user": {"id": user.id, "name": user.name, "email": user.email}}
+
+    @staticmethod
+    def delete(sessionId: str):
+        session = SessionGateway.delete(sessionId=sessionId)
+        if not session:
+            raise HTTPException(status_code=404, detail="Session not found")
         return {"session": session}

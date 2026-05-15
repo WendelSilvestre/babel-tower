@@ -24,6 +24,10 @@ async def sessionPost(request: Request):
     body = await request.json()
     return SessionHandler.post(body)
 
+@router.delete("/session/{sessionId}")
+async def sessionDelete(sessionId: str):
+    return SessionHandler.delete(sessionId)
+
 @router.get("/copa")
 async def copaGet(request: Request):
     body = dict(request.query_params)

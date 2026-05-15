@@ -24,3 +24,14 @@ class SessionGateway:
     def getAll():
         with SessionLocal() as db:
             return db.query(Session).all()
+
+    @staticmethod
+    def delete(sessionId: str):
+        with SessionLocal() as db:
+            session = db.query(Session).filter(Session.id == sessionId).first()
+            if not session:
+                return None
+            session.status = SessionStatus.expired
+            db.commit()
+            db.refresh(session)
+            return session

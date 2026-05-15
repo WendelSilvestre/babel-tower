@@ -1,22 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { RouteSelection } from "../../components/searchHeader";
 import { AlertError, AlertSuccess } from "../../components/alert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const inputClass = "bg-neutral-800 border-neutral-600 text-white placeholder:text-neutral-500 focus-visible:ring-neutral-400";
 const baseUrl = import.meta.env.VITE_BASE_API_URL;
 
 export default function UserLogin() {
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
+    const initialView = searchParams.get("view") === "signup" ? "signup" : "login";
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
-    const [view, setView] = useState("login");
+    const [view, setView] = useState(initialView);
     const [direction, setDirection] = useState("right");
     const [success, setSuccess] = useState("");
     const [error, setError] = useState("");
+
+    useEffect(() => {
+        if (localStorage.getItem("sessionId")) {
+            navigate("/profile");
+        }
+    }, [navigate]);
 
     function goTo(target) {
         setDirection(target === "signup" ? "right" : "left");
@@ -42,6 +50,9 @@ export default function UserLogin() {
         const data = await response.json()
         localStorage.setItem("sessionId", data.session.id)
         localStorage.setItem("userId", data.session.userId)
+        if (data.user?.name) {
+            localStorage.setItem("userName", data.user.name)
+        }
 
         navigate("/profile")
     }

@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 import { RouteSelection } from "../../components/searchHeader";
 
+const baseUrl = import.meta.env.VITE_BASE_API_URL;
 
 export default function Profile() {
     const navigate = useNavigate();
@@ -16,6 +18,20 @@ export default function Profile() {
         setUserId(localStorage.getItem("userId"));
     }, [navigate]);
 
+    async function handleLogout() {
+        const sessionId = localStorage.getItem("sessionId");
+        const response = await fetch(`${baseUrl}/babel-tower/session/${sessionId}`, {
+            method: "DELETE",
+        });
+
+        if (!response.ok) return;
+
+        localStorage.removeItem("sessionId");
+        localStorage.removeItem("userId");
+        localStorage.removeItem("userName");
+        navigate("/");
+    }
+
     if (!userId) return null;
 
     return (
@@ -26,6 +42,9 @@ export default function Profile() {
                 <h1 className="text-3xl font-bold">Bem-vindo</h1>
                 <p className="text-neutral-400">ID do usuário:</p>
                 <p className="text-lg font-mono">{userId}</p>
+                <Button variant="ghost" className="text-white hover:text-red-500 hover:bg-red-500/10 text-xs mt-4" onClick={handleLogout}>
+                    Deslogar
+                </Button>
             </div>
         </>
     );

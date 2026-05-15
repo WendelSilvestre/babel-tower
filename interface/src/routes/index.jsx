@@ -17,7 +17,7 @@ export const options = [
   { "keyword": "string", "value": "/strike", "description": "Formatação de texto: tachados"},
   { "keyword": "manga", "value": "/manga", "description": "Controle de volumes de manga"},
   { "keyword": "profile", "value": "/profile", "description": "Página do usuário"},
-  { "keyword": "copa", "value": "/copa", "description": "Marcação de figurinhas do albúm da copa"},
+  { "keyword": "copa", "value": "/copa", "description": "Marcação de figurinhas da copa"},
 ]
 
 export default function AppRoutes() {

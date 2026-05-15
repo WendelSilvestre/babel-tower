@@ -76,8 +76,8 @@ export default function Home() {
               onClick={() => navigate(option.value)}
               className="w-60 h-30 bg-white/10 hover:bg-white/20 border border-white/20 hover:border-indigo-400 rounded-2xl shadow-md flex flex-col items-start justify-end gap-1 p-4 transition-all duration-200"
             >
-              <span className="text-white font-semibold text-base capitalize">{option.keyword}</span>
-              <span className="text-gray-400 text-xs">{option.description}</span>
+              <span className="w-full text-left text-white font-semibold text-base capitalize">{option.keyword}</span>
+              <span className="w-full text-justify text-gray-400 text-xs">{option.description}</span>
             </button>
           )}
         </div>
