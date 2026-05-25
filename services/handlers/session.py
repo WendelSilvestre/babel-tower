@@ -25,7 +25,6 @@ class SessionHandler:
         return {"session": session, "user": {"id": user.id, "name": user.name, "email": user.email}}
 
     @staticmethod
-    @validateSession
     def delete(request: Request, data: dict):
         sessionId = data["sessionId"]
         session = SessionGateway.delete(sessionId=sessionId)
