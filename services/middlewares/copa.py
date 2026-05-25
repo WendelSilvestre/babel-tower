@@ -4,8 +4,8 @@ from database.copa import CopaGateway
 
 
 def validateCopaId(func):
-    def wrapper(request: Request, body: dict):
-        copaId = body.get("copaId")
+    def wrapper(request: Request, data: dict):
+        copaId = data.get("copaId")
         if not copaId:
             raise HTTPException(status_code=400, detail="copaId is required")
 
@@ -13,5 +13,5 @@ def validateCopaId(func):
         if not copa:
             raise HTTPException(status_code=404, detail="Copa not found")
 
-        return func(request, body)
+        return func(request, data)
     return wrapper

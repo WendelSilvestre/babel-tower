@@ -5,21 +5,21 @@ from utils.parameters import validateParameters
 
 
 def validateUserParameters(func):
-    def wrapper(request: Request, body: dict):
+    def wrapper(request: Request, data: dict):
         errors = validateParameters(
-            body=body,
+            data=data,
             required=["email", "password", "name"],
         )
         if errors:
             raise HTTPException(status_code=400, detail=errors)
 
-        return func(request, body)
+        return func(request, data)
     return wrapper
 
 
 def validateUserId(func):
-    def wrapper(request: Request, body: dict):
-        userId = body.get("userId")
+    def wrapper(request: Request, data: dict):
+        userId = data.get("userId")
         if not userId:
             raise HTTPException(status_code=400, detail="UserId is required")
 
@@ -27,5 +27,5 @@ def validateUserId(func):
         if not user:
             raise HTTPException(status_code=404, detail="User not found")
 
-        return func(request, body)
+        return func(request, data)
     return wrapper

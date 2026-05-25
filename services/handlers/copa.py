@@ -12,9 +12,9 @@ class CopaHandler:
     @validateSession
     @validateUserId
     @validateCopaId
-    def patch(request: Request, body: dict):
-        copaId = body["copaId"]
-        owned = body["owned"]
+    def patch(request: Request, data: dict):
+        copaId = data["copaId"]
+        owned = data["owned"]
 
         copa = CopaGateway.update(copaId=copaId, owned=owned)
 
@@ -23,8 +23,8 @@ class CopaHandler:
     @staticmethod
     @validateSession
     @validateUserId
-    def get(request: Request, body: dict):
-        userId = body["userId"]
+    def get(request: Request, data: dict):
+        userId = data["userId"]
         copaCards = CopaGateway.getByUserId(userId=userId)
 
         if not copaCards:

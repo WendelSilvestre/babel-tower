@@ -9,9 +9,9 @@ from middlewares.session import validateSession
 class SessionHandler:
 
     @staticmethod
-    def post(request: Request, body: dict):
-        email = body["email"]
-        password = body["password"]
+    def post(request: Request, data: dict):
+        email = data["email"]
+        password = data["password"]
 
         user = UserGateway.getEmail(email=email)
         if not user:
@@ -26,8 +26,8 @@ class SessionHandler:
 
     @staticmethod
     @validateSession
-    def delete(request: Request, body: dict):
-        sessionId = body["sessionId"]
+    def delete(request: Request, data: dict):
+        sessionId = data["sessionId"]
         session = SessionGateway.delete(sessionId=sessionId)
         if not session:
             raise HTTPException(status_code=404, detail="Session not found")

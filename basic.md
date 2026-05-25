@@ -163,3 +163,33 @@ git reset nome-do-arquivo
 ```
 
 ---
+
+## Subir a aplicação
+
+### Frontend (interface — Vite + React)
+
+A partir da pasta `interface/`:
+
+```bash
+npm run dev
+```
+
+Roda em `http://localhost:5173`.
+
+### Backend (services — FastAPI + Uvicorn)
+
+A partir da pasta `services/`:
+
+```bash
+uvicorn main:app --reload
+```
+
+Roda em `http://localhost:8000`. A flag `--reload` recarrega o servidor automaticamente quando o código muda.
+
+Pra subir em outra porta:
+
+```bash
+uvicorn main:app --reload --port 8000
+```
+
+---

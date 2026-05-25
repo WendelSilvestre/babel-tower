@@ -7,7 +7,7 @@ from models.session import SessionStatus
 
 
 def validateSession(func):
-    def wrapper(request: Request, body: dict):
+    def wrapper(request: Request, data: dict):
         sessionId = request.headers.get("session")
         if not sessionId:
             raise HTTPException(status_code=401, detail="Session header is required")
@@ -19,5 +19,5 @@ def validateSession(func):
         if session.status != SessionStatus.active or session.expiration < datetime.now():
             raise HTTPException(status_code=401, detail="Session is invalid or expired")
 
-        return func(request, body)
+        return func(request, data)
     return wrapper

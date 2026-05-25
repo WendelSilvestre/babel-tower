@@ -9,10 +9,10 @@ class UserHandler:
 
     @staticmethod
     @validateUserParameters
-    def post(request: Request, body: dict):
-        name = body["name"]
-        email = body["email"]
-        password = body["password"]
+    def post(request: Request, data: dict):
+        name = data["name"]
+        email = data["email"]
+        password = data["password"]
 
         hashedPassword = hashpw(password.encode("utf-8"), gensalt()).decode("utf-8")
 
