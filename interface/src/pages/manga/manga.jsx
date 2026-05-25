@@ -26,6 +26,12 @@ export default function Manga() {
     const [newKeyWords, setNewKeyWords] = useState("");
     const [newImageUrl, setNewImageUrl] = useState("");
 
+    const [showPick, setShowPick] = useState(false);
+    const [pickStep, setPickStep] = useState("list");
+    const [pickedManga, setPickedManga] = useState(null);
+    const [pickSearch, setPickSearch] = useState("");
+    const [pickImageUrl, setPickImageUrl] = useState("");
+
     useEffect(() => {
         const sessionId = localStorage.getItem("sessionId");
         if (!sessionId) {
@@ -80,6 +86,42 @@ export default function Manga() {
 
         const data = await response.json();
         setMangaCounters(prev => prev.map(c => c.id === data.mangaCounter.id ? data.mangaCounter : c));
+    }
+
+    async function handleAddExistingToCollection(e) {
+        e.preventDefault();
+        const response = await fetch(`${baseUrl}/babel-tower/manga-counter`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "session": localStorage.getItem("sessionId"),
+            },
+            body: JSON.stringify({
+                mangaId: pickedManga.id,
+                userId,
+                imageUrl: pickImageUrl,
+            }),
+        });
+        if (!response.ok) {
+            setError("Erro ao adicionar à sua coleção");
+            return;
+        }
+        setSuccess("Manga adicionado à sua coleção!");
+        closePickModal();
+        handleGetCounters();
+    }
+
+    function closePickModal() {
+        setShowPick(false);
+        setPickStep("list");
+        setPickedManga(null);
+        setPickSearch("");
+        setPickImageUrl("");
+    }
+
+    function openCreateFromPick() {
+        closePickModal();
+        setShowCreate(true);
     }
 
     async function handleCreateManga(e) {
@@ -161,7 +203,7 @@ export default function Manga() {
                             className="flex-1 bg-white/5 border-white/10 text-white placeholder:text-neutral-500 focus-visible:ring-indigo-400"
                         />
                         <Button
-                            onClick={() => setShowCreate(true)}
+                            onClick={() => setShowPick(true)}
                             className="bg-orange-500 hover:bg-orange-400 text-white flex-shrink-0"
                         >
                             + Adicionar
@@ -253,6 +295,96 @@ export default function Manga() {
                     })}
                 </div>
             </div>
+
+            {showPick && (
+                <div
+                    className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+                    onClick={closePickModal}
+                >
+                    <div
+                        className="bg-neutral-900 border border-white/10 rounded-2xl p-6 w-full max-w-lg flex flex-col gap-4"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        {pickStep === "list" ? (
+                            <>
+                                <h2 className="text-xl font-semibold text-white">Adicionar à sua coleção</h2>
+                                <Input
+                                    value={pickSearch}
+                                    onChange={(e) => setPickSearch(e.target.value)}
+                                    placeholder="Pesquisar manga..."
+                                    className={inputClass}
+                                />
+                                <div className="flex flex-col gap-1 max-h-72 overflow-y-auto -mx-2 px-2">
+                                    {mangas
+                                        .filter(m => m.name.toLowerCase().includes(pickSearch.toLowerCase()))
+                                        .map(m => {
+                                            const alreadyHas = mangaCounters.some(c => c.mangaId === m.id);
+                                            return (
+                                                <button
+                                                    key={m.id}
+                                                    onClick={() => { setPickedManga(m); setPickStep("image"); }}
+                                                    className="flex flex-row items-center justify-between gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 text-left transition-colors"
+                                                >
+                                                    <span className="flex items-center gap-2 min-w-0">
+                                                        <span className="text-white capitalize truncate">{m.name}</span>
+                                                        {alreadyHas && (
+                                                            <span className="text-[10px] uppercase tracking-wider text-indigo-400 bg-indigo-500/10 px-1.5 py-0.5 rounded flex-shrink-0">
+                                                                já tem
+                                                            </span>
+                                                        )}
+                                                    </span>
+                                                    <span className="text-xs text-neutral-500 flex-shrink-0">{m.totalVolumes} vol.</span>
+                                                </button>
+                                            );
+                                        })}
+                                    {mangas.filter(m => m.name.toLowerCase().includes(pickSearch.toLowerCase())).length === 0 && (
+                                        <p className="text-center text-neutral-500 text-sm py-6">Nenhum manga encontrado</p>
+                                    )}
+                                </div>
+                                <div className="flex flex-col gap-2 border-t border-white/10 pt-4">
+                                    <p className="text-sm text-neutral-400">Não tem o manga? Adicione aqui:</p>
+                                    <Button
+                                        onClick={openCreateFromPick}
+                                        className="bg-orange-500 hover:bg-orange-400 text-white"
+                                    >
+                                        Cadastrar novo manga
+                                    </Button>
+                                </div>
+                            </>
+                        ) : (
+                            <>
+                                <h2 className="text-xl font-semibold text-white capitalize">{pickedManga?.name}</h2>
+                                <p className="text-xs text-neutral-500">{pickedManga?.totalVolumes} volumes</p>
+                                <form onSubmit={handleAddExistingToCollection} className="flex flex-col gap-4">
+                                    <div className="flex flex-col gap-1.5">
+                                        <label htmlFor="pickImageUrl" className="text-sm text-neutral-300">Image URL</label>
+                                        <Input
+                                            id="pickImageUrl"
+                                            value={pickImageUrl}
+                                            onChange={(e) => setPickImageUrl(e.target.value)}
+                                            type="url"
+                                            required
+                                            placeholder="https://..."
+                                            className={inputClass}
+                                        />
+                                    </div>
+                                    <div className="flex flex-row gap-2 justify-end mt-2">
+                                        <Button
+                                            variant="ghost"
+                                            type="button"
+                                            className="text-neutral-500 hover:text-white text-xs"
+                                            onClick={() => { setPickStep("list"); setPickedManga(null); setPickImageUrl(""); }}
+                                        >
+                                            Voltar
+                                        </Button>
+                                        <Button type="submit" className="bg-orange-500 hover:bg-orange-400">Adicionar</Button>
+                                    </div>
+                                </form>
+                            </>
+                        )}
+                    </div>
+                </div>
+            )}
 
             {showCreate && (
                 <div
