@@ -22,6 +22,7 @@ export default function Profile() {
         const sessionId = localStorage.getItem("sessionId");
         const response = await fetch(`${baseUrl}/babel-tower/session/${sessionId}`, {
             method: "DELETE",
+            headers: { "session": sessionId },
         });
 
         if (!response.ok) return;

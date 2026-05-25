@@ -1,25 +1,29 @@
+from fastapi import Request
+
 from database.copa import CopaGateway
 from middlewares.user import validateUserId
 from middlewares.copa import validateCopaId
+from middlewares.session import validateSession
 
 
 class CopaHandler:
 
     @staticmethod
+    @validateSession
     @validateUserId
     @validateCopaId
-    def patch(body: dict):
+    def patch(request: Request, body: dict):
         copaId = body["copaId"]
         owned = body["owned"]
-        
+
         copa = CopaGateway.update(copaId=copaId, owned=owned)
 
         return {"copa": copa}
 
     @staticmethod
+    @validateSession
     @validateUserId
-    #TODO Change userId to be queryParameter and not body parameter
-    def get(body: dict):
+    def get(request: Request, body: dict):
         userId = body["userId"]
         copaCards = CopaGateway.getByUserId(userId=userId)
 

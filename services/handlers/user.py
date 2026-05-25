@@ -1,4 +1,5 @@
 from bcrypt import hashpw, gensalt
+from fastapi import Request
 
 from database.user import UserGateway
 from middlewares.user import validateUserParameters
@@ -8,7 +9,7 @@ class UserHandler:
 
     @staticmethod
     @validateUserParameters
-    def post(body: dict):
+    def post(request: Request, body: dict):
         name = body["name"]
         email = body["email"]
         password = body["password"]

@@ -33,7 +33,9 @@ export default function Copa() {
     if (!userId) return null;
 
     async function handleGetCopa() {
-        const response = await fetch(`${baseUrl}/babel-tower/copa?userId=${encodeURIComponent(userId)}`);
+        const response = await fetch(`${baseUrl}/babel-tower/copa?userId=${encodeURIComponent(userId)}`, {
+            headers: { "session": localStorage.getItem("sessionId") },
+        });
 
         if (!response.ok) {
             setError("Erro ao coletar histórico do album da copa");
@@ -51,7 +53,10 @@ export default function Copa() {
         try {
             const response = await fetch(`${baseUrl}/babel-tower/copa`, {
                 method: "PATCH",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    "session": localStorage.getItem("sessionId"),
+                },
                 body: JSON.stringify({ copaId, owned, userId })
             });
 

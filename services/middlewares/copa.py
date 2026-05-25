@@ -1,10 +1,10 @@
-from fastapi import HTTPException
+from fastapi import HTTPException, Request
 
 from database.copa import CopaGateway
 
 
 def validateCopaId(func):
-    def wrapper(body: dict):
+    def wrapper(request: Request, body: dict):
         copaId = body.get("copaId")
         if not copaId:
             raise HTTPException(status_code=400, detail="copaId is required")
@@ -13,5 +13,5 @@ def validateCopaId(func):
         if not copa:
             raise HTTPException(status_code=404, detail="Copa not found")
 
-        return func(body)
+        return func(request, body)
     return wrapper
