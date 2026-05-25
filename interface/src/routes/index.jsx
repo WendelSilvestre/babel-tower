@@ -8,6 +8,7 @@ import Phrase from '../pages/phrase/phrase.jsx'
 import UserLogin from '../pages/users/users.jsx'
 import Profile from '@/pages/profile/profile.jsx'
 import Strikethrough from '../pages/utilities/strikethrough.jsx'
+import { Footer } from '../components/footer.jsx'
 
 export const options = [
   { "keyword": "home", "value": "/", "description": "Tela inicial"},
@@ -23,16 +24,21 @@ export const options = [
 export default function AppRoutes() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/phrase" element={<Phrase />} />
-        <Route path="/user" element={<UserLogin />} />
-        <Route path="/strike" element={<Strikethrough />} />
-        <Route path="/manga" element={<Manga />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/copa" element={<Copa />} />
-      </Routes>
+      <div className="min-h-screen flex flex-col">
+        <div className="flex-1">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/phrase" element={<Phrase />} />
+            <Route path="/user" element={<UserLogin />} />
+            <Route path="/strike" element={<Strikethrough />} />
+            <Route path="/manga" element={<Manga />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/copa" element={<Copa />} />
+          </Routes>
+        </div>
+        <Footer />
+      </div>
     </BrowserRouter>
   )
 }

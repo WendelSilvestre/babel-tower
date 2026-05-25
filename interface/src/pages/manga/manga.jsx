@@ -169,7 +169,7 @@ export default function Manga() {
                     </div>
                 </div>
 
-                <div className="w-[90%] mx-auto mt-10 flex flex-col border-t border-white/10">
+                <div className="w-[90%] mx-auto mt-10 mb-16 flex flex-col border-t border-white/10">
                     {filtered.length === 0 && (
                         <p className="text-center text-neutral-500 text-sm py-16">
                             Nenhum manga encontrado.
