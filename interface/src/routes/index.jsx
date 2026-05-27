@@ -8,6 +8,7 @@ import Phrase from '../pages/phrase/phrase.jsx'
 import UserLogin from '../pages/users/users.jsx'
 import Profile from '@/pages/profile/profile.jsx'
 import Strikethrough from '../pages/utilities/strikethrough.jsx'
+import FiapCalculate from '../pages/utilities/calculate.jsx'
 import { Footer } from '../components/footer.jsx'
 
 export const options = [
@@ -19,6 +20,7 @@ export const options = [
   { "keyword": "manga", "value": "/manga", "description": "Controle de volumes de manga"},
   { "keyword": "profile", "value": "/profile", "description": "Página do usuário"},
   { "keyword": "copa", "value": "/copa", "description": "Marcação de figurinhas da copa"},
+  { "keyword": "fiap", "value": "/fiap-calculator", "description": "Calculadora da Fiap"},
 ]
 
 export default function AppRoutes() {
@@ -35,6 +37,7 @@ export default function AppRoutes() {
             <Route path="/manga" element={<Manga />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/copa" element={<Copa />} />
+            <Route path="/fiap-calculator" element={<FiapCalculate />} />
           </Routes>
         </div>
         <Footer />

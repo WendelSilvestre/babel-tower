@@ -2,7 +2,7 @@ import { useState } from "react";
 import {
   CloudArrowUpIcon, LockClosedIcon, ServerIcon,
   HomeIcon, ArrowRightEndOnRectangleIcon, PuzzlePieceIcon, InformationCircleIcon,
-  DocumentTextIcon, BookOpenIcon, UserCircleIcon, TrophyIcon,
+  DocumentTextIcon, BookOpenIcon, UserCircleIcon, TrophyIcon, CalculatorIcon,
 } from '@heroicons/react/24/solid'
 import { RouteSelection } from "../../components/searchHeader";
 import { useNavigate } from "react-router-dom";
@@ -36,6 +36,7 @@ const icons = {
   manga: BookOpenIcon,
   profile: UserCircleIcon,
   copa: TrophyIcon,
+  fiap: CalculatorIcon,
 }
 
 export default function Home() {
