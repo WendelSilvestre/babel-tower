@@ -15,7 +15,7 @@ class MangaHandler:
     @staticmethod
     @validateSession
     def post(request: Request, data: dict):
-        name = data["name"].lower()
+        name = data["name"]
         totalVolumes = data["totalVolumes"]
         keyWords = data.get("keyWords", [])
 

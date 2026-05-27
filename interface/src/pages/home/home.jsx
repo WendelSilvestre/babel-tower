@@ -1,4 +1,9 @@
-import { CloudArrowUpIcon, LockClosedIcon, ServerIcon } from '@heroicons/react/20/solid'
+import { useState } from "react";
+import {
+  CloudArrowUpIcon, LockClosedIcon, ServerIcon,
+  HomeIcon, ArrowRightEndOnRectangleIcon, PuzzlePieceIcon, InformationCircleIcon,
+  DocumentTextIcon, BookOpenIcon, UserCircleIcon, TrophyIcon,
+} from '@heroicons/react/24/solid'
 import { RouteSelection } from "../../components/searchHeader";
 import { useNavigate } from "react-router-dom";
 import { options } from "@/routes"
@@ -22,8 +27,25 @@ const features = [
   },
 ]
 
+const icons = {
+  home: HomeIcon,
+  user: ArrowRightEndOnRectangleIcon,
+  phrase: PuzzlePieceIcon,
+  about: InformationCircleIcon,
+  string: DocumentTextIcon,
+  manga: BookOpenIcon,
+  profile: UserCircleIcon,
+  copa: TrophyIcon,
+}
+
 export default function Home() {
   const navigate = useNavigate()
+  const [search, setSearch] = useState("")
+
+  const filtered = options.filter(option =>
+    option.keyword.toLowerCase().includes(search.toLowerCase()) ||
+    option.description.toLowerCase().includes(search.toLowerCase())
+  )
   return (
     <>      
       <RouteSelection />
@@ -66,19 +88,32 @@ export default function Home() {
         </div>
         <input
           type="text"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
           placeholder="Pesquisar..."
           className="w-full max-w-md px-4 py-2 rounded-xl border border-white/20 bg-white/10 text-white placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
         />
-        <div className="flex flex-wrap justify-center gap-4">
-          {options.map(option =>
-            <button
-              key={option.value}
-              onClick={() => navigate(option.value)}
-              className="w-60 h-30 bg-white/10 hover:bg-white/20 border border-white/20 hover:border-indigo-400 rounded-2xl shadow-md flex flex-col items-start justify-end gap-1 p-4 transition-all duration-200"
-            >
-              <span className="w-full text-left text-white font-semibold text-base capitalize">{option.keyword}</span>
-              <span className="w-full text-justify text-gray-400 text-xs">{option.description}</span>
-            </button>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5 w-[90%]">
+          {filtered.map(option => {
+            const Icon = icons[option.keyword] ?? BookOpenIcon
+            return (
+              <button
+                key={option.value}
+                onClick={() => navigate(option.value)}
+                className="group flex flex-col items-start gap-3 p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-orange-400/50 hover:bg-white/[0.07] shadow-sm hover:shadow-lg transition-all duration-200 text-left"
+              >
+                <div className="flex items-center justify-center size-11 rounded-xl bg-orange-500/10 text-orange-400 group-hover:bg-orange-500/20 transition-colors">
+                  <Icon aria-hidden="true" className="size-6" />
+                </div>
+                <span className="text-white font-semibold text-base capitalize">{option.keyword}</span>
+                <span className="text-gray-400 text-sm leading-relaxed">{option.description}</span>
+              </button>
+            )
+          })}
+          {filtered.length === 0 && (
+            <p className="col-span-full text-center text-gray-500 text-sm py-8">
+              Nenhum resultado encontrado.
+            </p>
           )}
         </div>
       </div>
