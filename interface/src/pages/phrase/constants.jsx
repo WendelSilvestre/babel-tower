@@ -63,11 +63,16 @@ export const newPhrases = [
 
     { "person": "Nicassio", "phrase": "Ai Ai Ai" },
 
+    { "person": "Filha do Gustavo", "phrase": "Papai bateu mamãe" },
+
     { "person": "Gustavo", "phrase": "Tem dia que noite é foda" },
+    { "person": "Gustavo", "phrase": "Foda. Foda é cagar um coco" },
     { "person": "Gustavo", "phrase": "Para quem fica, minha pica!" },
+    { "person": "Gustavo", "phrase": "Arma só atira na mão de homem" },
     { "person": "Gustavo", "phrase": "Pessoas vemos, costumes não sabemos" },
     { "person": "Gustavo", "phrase": "O maldito homem que acredita no homem" },
     { "person": "Gustavo", "phrase": "A dor do parto é grande, mas devo partir" },
+    { "person": "Gustavo", "phrase": "Se você ta cansado, imagina eu que trabalho" },
 
     { "person": "Vitão", "phrase": "Eu tenho laudo" },
     { "person": "Vitão", "phrase": "Maconha não é droga" },
